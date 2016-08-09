@@ -10,6 +10,7 @@
     <modules>
         <module>search-lucene</module>
         <module>design-pattern </module>
+        <module>servletmvc</module>
     </modules>
     <packaging>pom</packaging>
 
