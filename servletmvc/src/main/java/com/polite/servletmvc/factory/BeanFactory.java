@@ -1,4 +1,4 @@
-package com.polite.servlermvc.factory;
+package com.polite.servletmvc.factory;
 
 import java.util.HashMap;
 import java.util.Map;

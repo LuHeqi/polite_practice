@@ -1,5 +1,6 @@
-package com.polite.servlermvc.util;
+package com.polite.servletmvc.util;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
@@ -26,8 +27,16 @@ public class Packageutils {
                 String protocol = url.getProtocol();
                 if ( "file".equals(protocol)){
                     //TODO  是文件类型 （） handle
+                    System.out.printf(" file protocol: path = %s,filename = %s \n",url.getPath(),url.getFile());
+                    File[] files  = new File(url.getPath()).listFiles();
+                    if (files != null) {
+                        for (File file : files) {
+                            System.out.printf("filename : %s \n",file.getName());
+                        }
+                    }
                 } else if ("jar".equals(protocol)) {
                     // TODO  jar type handle
+                    System.out.printf(" jar protocol %s",url.getPath());
                 }
             }
 
@@ -36,5 +45,9 @@ public class Packageutils {
         }
 
         return classes;
+    }
+
+    public static void main(String[] args) {
+        Set<Class<?>> classList = Packageutils.getClassList("com.polite.servletmvc.annotation", true);
     }
 }
