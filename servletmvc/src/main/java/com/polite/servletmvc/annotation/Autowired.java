@@ -1,4 +1,4 @@
-package com.polite.servlermvc.annotation;
+package com.polite.servletmvc.annotation;
 
 import java.lang.annotation.*;
 

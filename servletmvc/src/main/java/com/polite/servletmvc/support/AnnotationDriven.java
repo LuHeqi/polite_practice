@@ -1,4 +1,4 @@
-package com.polite.servlermvc.support;
+package com.polite.servletmvc.support;
 
 /**
  * @author polite
