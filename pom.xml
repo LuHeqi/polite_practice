@@ -11,6 +11,7 @@
         <module>search-lucene</module>
         <module>design-pattern </module>
         <module>servletmvc</module>
+        <module>java8nt</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -28,8 +29,8 @@
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
