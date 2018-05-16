@@ -82,26 +82,16 @@ public class Demo {
                 }
             });
         }
-        executorService.shutdown();
+
         /**
          * 与清单 3 中手动创建的 temp 非常相似，这个 i 参数在每次迭代中都表现为一个全新的变量。
          * 它是实际最终变量，因为我们不会在任何地方更改它的值。
          * 因此，我们可以直接在内部类的上下文中使用它 — 且不会有任何麻烦。
          */
+
         IntStream.range(0, 5)
                 .forEach(i ->
-                        executorService.submit(new Runnable() {
-                            public void run() {
-                                System.out.println("Running task " + i);
-                            }
-                        }));
-
-        executorService.shutdown();
-
-        // 将内部类替换为拉姆达表达式
-        IntStream.range(0, 5)
-                .forEach(i ->
-                        executorService.submit(() -> System.out.println("Running task " + i)));
+                        executorService.submit(() -> System.out.println("IntStream Running task " + i)));
         //  显然，对于相对简单的迭代，使用 range 代替 for 具有一定优势，但 for 的特殊价值体现在于它能处理更复杂的迭代场景。
 
         /**
@@ -160,6 +150,48 @@ public class Demo {
                 .map(String::valueOf)
                 .collect(Collectors.joining(","));
         // ================ 9 级联lambda 表达式 end
+
+        List<String> teamIndia = Arrays.asList("Virat", "Dhoni", "Jadeja");
+        List<String> teamAustralia = Arrays.asList("Warner", "Watson", "Smith");
+        List<String> teamEngland = Arrays.asList("Alex", "Bell", "Broad");
+        List<String> teamNewZeland = Arrays.asList("Kane", "Nathan", "Vettori");
+        List<String> teamSouthAfrica = Arrays.asList("AB", "Amla", "Faf");
+        List<String> teamWestIndies = Arrays.asList("Sammy", "Gayle", "Narine");
+        List<String> teamSriLanka = Arrays.asList("Mahela", "Sanga", "Dilshan");
+        List<String> teamPakistan = Arrays.asList("Misbah", "Afridi", "Shehzad");
+
+        List<List<String>> playersInWorldCup2016 = new ArrayList<>();
+        playersInWorldCup2016.add(teamIndia);
+        playersInWorldCup2016.add(teamAustralia);
+        playersInWorldCup2016.add(teamEngland);
+        playersInWorldCup2016.add(teamNewZeland);
+        playersInWorldCup2016.add(teamSouthAfrica);
+        playersInWorldCup2016.add(teamWestIndies);
+        playersInWorldCup2016.add(teamSriLanka);
+        playersInWorldCup2016.add(teamPakistan);
+
+        // Let's print all players before Java 8
+        List<String> listOfAllPlayers = new ArrayList<>();
+
+        for(List<String> team : playersInWorldCup2016){
+            for(String name : team){
+                listOfAllPlayers.add(name);
+            }
+        }
+
+        System.out.println("Players playing in world cup 2016");
+        System.out.println(listOfAllPlayers);
+
+
+        // Now let's do this in Java 8 using FlatMap
+        List<String> flatMapList = playersInWorldCup2016.stream()
+                .flatMap(pList -> pList.stream())
+                .collect(Collectors.toList());
+
+        System.out.println("List of all Players using Java 8");
+        System.out.println(flatMapList);
+
+
     }
 
     /**
