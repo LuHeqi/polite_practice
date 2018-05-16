@@ -9,6 +9,7 @@ import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -92,6 +93,8 @@ public class Demo {
         IntStream.range(0, 5)
                 .forEach(i ->
                         executorService.submit(() -> System.out.println("IntStream Running task " + i)));
+
+        executorService.shutdown();
         //  显然，对于相对简单的迭代，使用 range 代替 for 具有一定优势，但 for 的特殊价值体现在于它能处理更复杂的迭代场景。
 
         /**
@@ -190,6 +193,37 @@ public class Demo {
 
         System.out.println("List of all Players using Java 8");
         System.out.println(flatMapList);
+
+        String reduce = Arrays.asList(1, 2, 3)
+                .stream()
+                .map(String::valueOf)
+                .reduce("", String::concat);
+        System.out.println(reduce);
+        String collect1 = Arrays.asList(1, 2, 3)
+                .stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining(",", "prefix", "suffix"));
+        System.out.println(collect1);
+
+        StringBuilder collect = Arrays.asList(1, 2, 3, 4)
+                .stream()
+                .collect(StringBuilder::new,
+                        StringBuilder::append,
+                        StringBuilder::append);
+        System.out.println(collect);
+
+        Set<Long> hashSet = Arrays.asList(1, 2, 3, 4, 4)
+                .stream()
+                .mapToLong(Integer::longValue)
+                .collect((Supplier<Set<Long>>)HashSet::new, Set::add, Set::addAll);
+        System.out.println(hashSet);
+     //   使用 Streams 计算单词数量直方图
+        String inputStr = "Hello world Hello China Hello Asia ";
+        Stream.of(inputStr.split("\\s+"))
+                .collect(Collectors.groupingBy(String::toLowerCase, Collectors.counting()))
+                .forEach((k,v) -> System.out.println(k+" : " +v));
+        ;
+
 
 
     }
